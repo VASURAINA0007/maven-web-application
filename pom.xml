@@ -1,178 +1,157 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>com.mt</groupId>
-	<artifactId>maven-web-application</artifactId>
-	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	
-	<name>maven-web-application</name>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.mt</groupId>
+    <artifactId>maven-web-application</artifactId>
+    <packaging>war</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    
+    <name>maven-web-application</name>
+    <description>Maven Web Project for Java Project</description>
+    <organization>
+        <name>Mithun Technologies</name>
+        <url>http://mithuntechnologies.com/</url>
+    </organization>
 
-	<description>Maven Web Project for Java Project</description>
+    <properties>
+        <!-- Java -->
+        <jdk.version>11</jdk.version> <!-- Changed from 1.8 to 11 for better compatibility -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <!-- Spring -->
+        <spring.version>5.3.18</spring.version> <!-- Updated from 5.1.2 -->
+        
+        <!-- Testing -->
+        <junit.version>4.13.2</junit.version> <!-- Updated from 3.8.1 -->
+        <mockito.version>3.12.4</mockito.version> <!-- Updated from 1.9.5 -->
+        
+        <!-- Logging -->
+        <log4j.version>2.17.2</log4j.version> <!-- Updated from 1.2.17 -->
+        
+        <!-- SonarQube -->
+        <sonar.host.url>http://3.108.60.38:9000/</sonar.host.url>
+        <!-- Removed hardcoded credentials for security -->
+    </properties>
 
-	<organization>
-		<name>Mithun Technologies</name>
-		<url>http://mithuntechnologies.com/</url>
-	</organization>
+    <dependencies>
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-	<properties>
-		<jdk.version>1.8</jdk.version>
-		<spring.version>5.1.2.RELEASE</spring.version>
-		<junit.version>4.11</junit.version>
-		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://3.108.60.38:9000/</sonar.host.url>
-		<sonar.login>admin</sonar.login>
-		<sonar.password>admin</sonar.password>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version> <!-- Updated from 3.1.0 -->
+            <scope>provided</scope>
+        </dependency>
 
-	</properties>
+        <!-- JSON -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version> <!-- Updated from 20160212 -->
+        </dependency>
 
-	
+        <!-- Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-	<dependencies>
-		
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20160212</version>
-		</dependency>
-		
-		<!-- test dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+    </dependencies>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>wallmart-release-repo</name>
+            <url>http://13.233.183.95:9980/vasu/repository/Wallmart-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>wallmart-snapshot-repo</name>
+            <url>http://13.233.183.95:9980/vasu/repository/Wallmart-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>1.9.5</version>
-			<scope>test</scope>
-		</dependency>
+    <build>
+        <finalName>maven-web-application</finalName>
+        <plugins>
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version> <!-- Updated from 3.3 -->
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
 
-		<!-- compile dependencies -->
+            <!-- WAR Packaging -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version> <!-- Updated from 3.3.2 -->
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-    		<groupId>org.springframework</groupId>
-    		<artifactId>spring-web</artifactId>
-    		<version>${spring.version}</version>
-  		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		
-		<!-- provided dependencies -->
+            <!-- SonarQube -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version> <!-- Downgraded from 4.0.0 for stability -->
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sonar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		
-	</dependencies>
-	
-	<distributionManagement>
-	
-	    <repository>
-	      <id>nexus</id>
-	      <name>wallmart-release-repo</name>
-	      <url>http://13.233.183.95:9980/vasu/repository/Wallmart-release/</url>
-	    </repository>
-	    
-	    <snapshotRepository>
-	      <id>nexus</id>
-	      <name>wallmart-snapshot-repo</name>
-	      <url>http://13.233.183.95:9980/vasu/repository/Wallmart-snapshot/</url>
-	    </snapshotRepository>
-	    
-	</distributionManagement>
-	
-	<build>
-  <finalName>maven-web-application</finalName>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.3</version>
-      <configuration>
-        <source>${jdk.version}</source>
-        <target>${jdk.version}</target>
-      </configuration>
-    </plugin>
-
-    <plugin>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-maven-plugin</artifactId>
-      <version>9.2.11.v20150529</version>
-      <configuration>
-        <scanIntervalSeconds>10</scanIntervalSeconds>
-        <webApp>
-          <contextPath>/maven-web-application</contextPath>
-        </webApp>
-      </configuration>
-    </plugin>
-
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-eclipse-plugin</artifactId>
-      <version>2.9</version>
-      <configuration>
-        <downloadSources>true</downloadSources>
-        <downloadJavadocs>true</downloadJavadocs>
-        <wtpversion>2.0</wtpversion>
-        <wtpContextName>maven-web-application</wtpContextName>
-      </configuration>
-    </plugin>
-
-    <!-- ✅ FIX: Add maven-war-plugin -->
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-war-plugin</artifactId>
-      <version>3.3.2</version>
-    </plugin>
-	  <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-war-plugin</artifactId>
-  <version>3.3.2</version>
-</plugin>
-	  <plugin>
-  <groupId>org.sonarsource.scanner.maven</groupId>
-  <artifactId>sonar-maven-plugin</artifactId>
-  <version>4.0.0.4121</version> <!-- or latest -->
-</plugin>
-
-
-
-
-  </plugins>
-</build>
-
-	
-	
-	
+            <!-- Jetty (for local testing) -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>11.0.15</version> <!-- Updated from 9.2.11 -->
+                <configuration>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webApp>
+                        <contextPath>/maven-web-application</contextPath>
+                    </webApp>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
