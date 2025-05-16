@@ -97,14 +97,14 @@
 	
 	    <repository>
 	      <id>nexus</id>
-	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://52.56.95.185:9980/mithuntechnologies/repository/icicibank-releases/</url>
+	      <name>wallmart-release-repo</name>
+	      <url>http://13.233.183.95:9980/vasu/repository/Wallmart-release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
-	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://52.56.95.185:9980/mithuntechnologies/repository/icicibank-snapshot/</url>
+	      <name>wallmart-snapshot-repo</name>
+	      <url>http://13.233.183.95:9980/vasu/repository/Wallmart-snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
